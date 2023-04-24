@@ -1,112 +1,115 @@
 //start the quiz
 
-const startButton= document.getElementById("start-btn")
-const questionContainerElement = document.getElementById("question-container")
-const answerBtnElement =document.getElementById("answer-btns")
-const nextBtnElement =document.getElementById("next-btn")
-const hideScoresElement=document.getElementById("score-container")
-const hideIntroElement=document.getElementById("intro")
-const questionElement=document.getElementById("question")
-const firstAnswer=document.getElementById("btn0")
-const secondAnswer=document.getElementById("btn1")
-const thirdAnswer=document.getElementById("btn2")
-const fourthAnswer=document.getElementById("btn3")
+const startButton= document.getElementById("start-btn");
+const questionContainerElement = document.getElementById("question-container");
+const answerBtnElement =document.getElementById("answer-btns");
+const nextBtnElement =document.getElementById("next-btn");
+const hideScoresElement=document.getElementById("score-container");
+const hideIntroElement=document.getElementById("intro");
+const questionElement=document.getElementById("question");
+
+let timeElement=document.getElementById("time");
+
+const choiceElementA=document.getElementById("A");
+const choiceElementB=document.getElementById("B");
+const choiceElementC=document.getElementById("C");
+const choiceElementD=document.getElementById("D");
+
+const startGameElement=document.getElementById("start-btn");
+
+startGameElement.addEventListener("click",createQuestion)
 
 
-startButton.addEventListener("click", startGame)
-nextBtnElement.addEventListener("click",function(){
+let counter= 10;
 
-},true)
+function countDown(){
+        timeElement.innerHTML="Time: "+ counter;
+        counter--
+
+        if(counter<0){
+            clearInterval(interval)
+        }
 
 
-
-function startGame(){
-
-startButton.classList.add("hidden")
-questionContainerElement.classList.remove("hidden")
-hideScoresElement.classList.remove("hide-score")
-nextBtnElement.classList.remove("next-btn-hide")
-hideIntroElement.classList.add("hidden")
-if(nextBtnElement==true)
-showQuestion1()
 }
-
-
 
 //click next to move on to the next question
 
 
 
-function showQuestion1(){
-    questionElement.innerText=questions[0].question1
-    firstAnswer.innerText=questions[0].text1
-    secondAnswer.innerText=questions[0].text2
-    thirdAnswer.innerText=questions[0].text3
-    fourthAnswer.innerText=questions[0].text4
-    showQuestion2()
-}
+function createQuestion(){
+    
+    startButton.classList.add("hidden");
+    questionContainerElement.classList.remove("hidden");
+    hideScoresElement.classList.remove("hide-score");
+    
+    hideIntroElement.classList.add("hidden");
 
-function showQuestion2(){
-    questionElement.innerText=questions[1].question2
-    firstAnswer.innerText=questions[1].text5
-    secondAnswer.innerText=questions[1].text6
-    thirdAnswer.innerText=questions[1].text7
-    fourthAnswer.innerText=questions[1].text8
-    showQuestion3()
-}
-function showQuestion3(){
-    questionElement.innerText=questions[2].question3
-    firstAnswer.innerText=questions[2].text9
-    secondAnswer.innerText=questions[2].text10
-    thirdAnswer.innerText=questions[2].text11
-    fourthAnswer.innerText=questions[2].text12
-    showQuestion4()
-}
-function showQuestion4(){
-    questionElement.innerText=questions[3].question4
-    firstAnswer.innerText=questions[3].text13
-    secondAnswer.innerText=questions[3].text14
-    thirdAnswer.innerText=questions[3].text15
-    fourthAnswer.innerText=questions[3].text16
+    let questionIndex= 0;
+
+    let q =questions[questionIndex];
+
+    questionElement.innerHTML= q.question;
+
+    choiceElementA.innerHTML=q.choiceA;
+    choiceElementB.innerHTML=q.choiceB;
+    choiceElementC.innerHTML=q.choiceC;
+    choiceElementD.innerHTML=q.choiceD;
+
+    interval= setInterval(countDown,1000)
+
+    if(choiceD===true){
+        questionIndex++
+    }
     
 }
 
+function checkAnswer(answer){
+if(answer==questions[questionIndex].correct){
+
+}
+}
+
+
 //identify questions and answers into objects and arrays
-const questions= [
+let questions= [
     {
-        question1: "In JavaScript what can arrays contain?",
+        question: "In JavaScript what can an array contain?",
         
-            
-            text1:"Numbers",
-            text2:"Strings", 
-            text3:"Booleans", 
-            text4: "All of the above", 
+            choiceA:"Numbers",
+            choiceB:"Strings", 
+            choiceC:"Booleans", 
+            choiceD: "All of the above", 
+            correct:"D"
 
 
     },
     {  
-    question2: "The condition of if/else statement is stored in?",
+    question: "The condition of am if/else statement is stored in?",
         
-            text5:"Parenthesis",
-            text6:"Curly Brackets",
-            text7: "Commas",
-            text8:"Slashes",
+            choiceA:"Parenthesis",
+            choiceB:"Curly Brackets",
+            choiceC: "Commas",
+            choiceD:"Slashes",
+            correct:"A"
     },
     {
-        question3:"Which language is the hardest?",
+        question:"Which language is the hardest?",
       
-            text9:"HTML",
-            text10:"CSS",
-            text11:"JavaScript",
-            text12:"English"
+            choiceA:"HTML",
+            choiceB:"CSS",
+            choiceC:"JavaScript",
+            choiceD:"English",
+            correct:"C"
     },
     {
-        question4:"Which is a helpful tool to debug code?",
+        question:"Which is a helpful tool to debug code?",
       
-            text13:"Arrays",
-            text14:"Booleans",
-            text15:"If/Then Statements",
-            text16: "Console.log"
+            choiceA:"Arrays",
+            choiceB:"Booleans",
+            choiceC:"If/Then Statements",
+            choiceD: "Console.log",
+            correct:"D"
         
     }
 
