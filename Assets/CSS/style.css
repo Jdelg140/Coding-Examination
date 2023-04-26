@@ -69,15 +69,25 @@ display: none;
     display: none;
 }
 
-.next-btn-hide{
-    display: none;
-}
-
 .intro-class{
     text-align: center;
     
 }
 
-#score-container{
-    display: top;
+
+header{
+    display: block;
 }
+
+#score-container{
+    display: grid;
+}
+
+.correctbtn{
+    display: none;
+}
+
+.incorrectbtn{
+    display: none;
+}
+
