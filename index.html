@@ -22,7 +22,7 @@
             <h2>Coding Challenge</h2>
             <p>This an exam to test your coding knowledge, you will have 60 seconds to complete. Good Luck!</p>
         </div>
-        
+
         <div>
             <h3 id="correct-prompt" class="correctbtn">Correct!</h3>
             <h3 id="incorrect-prompt" class="incorrectbtn">Incorrect!</h3>
@@ -34,11 +34,30 @@
             <div id="question">Question</div>
 
             <div id="answer-btns" class="answer-grid">
-                <button id="A" class="btn" >Answer 1</button>
-                <button id="B" class="btn" >Answer 2</button>
-                <button id="C" class="btn" >Answer 3</button>
-                <button id="D" class="btn" >Answer 4</button>
+                <button id="A" class="btn" onmousemove="clearFeedback()">Answer 1</button>
+                <button id="B" class="btn" onmousemove="clearFeedback()">Answer 2</button>
+                <button id="C" class="btn" onmousemove="clearFeedback()">Answer 3</button>
+                <button id="D" class="btn" onmousemove="clearFeedback()">Answer 4</button>
             </div>
+            
+
+        </div>
+        <div class="enterhighscorenone" id="enterhighscore">
+            <h2>All Done!</h2>
+            <p id="final-score">Your final score is: </p>
+            <form>
+                <input type="text" 
+                name="initials" 
+                id="initials" 
+                placeholder="initials">
+
+                <button type="submit" 
+                class="submit-btn" 
+                id="savescorebtn"
+                onclick="saveHighScore(event)">
+                Submit</button>
+                
+            </form>
 
         </div>
         

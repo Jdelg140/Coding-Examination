@@ -28,24 +28,13 @@ choiceElementB.addEventListener("click", checkAnswer);
 choiceElementC.addEventListener("click", checkAnswer);
 choiceElementD.addEventListener("click", checkAnswer);
 
+const initials=document.getElementById("initials");
+const saveScore=document.getElementById("savescorebtn");
+const enterHighScore=document.getElementById("enterhighscore");
+const finalScore=document.getElementById("final-score");
 
 
-let counter = 60;
-let start = false
-function countDown() {
-    if (!start) {
-        start = true
-        const interval = setInterval(function () {
-            timeElement.innerHTML = "Time: " + counter;
-            counter--;
 
-            if (counter == 0) {
-                clearInterval(interval);
-                timeElement.innerHTML = "Time: " + 0;
-            }
-        }, 1000)
-    }
-};
 
 
 
@@ -99,42 +88,74 @@ let score=0;
 
 function createQuestion() {
 
+    if(questionIndex===questions.length||counter<=0){
+        stop();
+        endQuiz();
+        
+        return;
+    }
+    
     startButton.classList.add("hidden");
     questionContainerElement.classList.remove("hidden");
     hideScoresElement.classList.remove("hide-score");
     hideIntroElement.classList.add("hidden");
+    enterHighScore.classList.add("enterhighscorenone");
+    
 
+    
     
     let q = questions[questionIndex];
     console.log(q);
-    questionIndex++;
-
+    
+    
     questionElement.innerHTML = q.question;
-
+    
     choiceElementA.innerHTML = q.choiceA.answer;
     choiceElementA.setAttribute('data-correct', q.choiceA.correct);
-
+    
     choiceElementB.innerHTML = q.choiceB.answer;
     choiceElementB.setAttribute('data-correct', q.choiceB.correct);
-
+    
     choiceElementC.innerHTML = q.choiceC.answer;
     choiceElementC.setAttribute('data-correct', q.choiceC.correct);
-
+    
     choiceElementD.innerHTML = q.choiceD.answer;
     choiceElementD.setAttribute('data-correct', q.choiceD.correct);
-
+    
     scoreElement.innerHTML="Score: "+score;
-   
+    
     countDown();
+    
+    
+    
 
+    questionIndex++;
+}
+
+
+let counter = 60;
+let start = false;
+function countDown() {
+    if (!start ) {
+        start = true
+        interval=setInterval(function () {
+            timeElement.innerHTML = "Time: " + counter;
+            counter--;
+
+        }, 1000)
+    }
+    return
+};
+
+function stop(){
+    clearInterval(interval)
 }
 
 function clearFeedback(){
-    
-    incorrectElement.classList.add("incorrectbtn");
+    incorrectElement.classList.add("incorrectbtn");                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     correctElement.classList.add("correctbtn");
 
-}
+}                                                                                                              
 
 function scoreIncrement(){
 
@@ -149,34 +170,53 @@ function scoreDecrement(){
 
 function checkAnswer(event) {
     if(event.target.getAttribute('data-correct') === "true"){
+        scoreIncrement();
         console.log("Correct answer was chosen, add time, give feedback, call next question func");
         counter=counter+10;
         scoreElement.innerHTML="Score: "+score;
         correctElement.classList.remove("correctbtn");
-        scoreIncrement();
+        
         createQuestion();
+        
+        
        
         
     }else{
+        scoreDecrement();
         console.log("incorrect answer choosen, subtract time, give feedback, call next func");
         counter=counter - 10;
         scoreElement.innerHTML="Score: "+score;
         incorrectElement.classList.remove("incorrectbtn");
-        scoreDecrement();
+        
         createQuestion();
     }
 }
 
 
 function endQuiz(){
-    if(questionIndex>questions.length || counter==0){
+        enterHighScore.classList.remove("enterhighscorenone");
         startButton.classList.add("hidden");
         questionContainerElement.classList.add("hidden");
         hideScoresElement.classList.add("hide-score");
         hideIntroElement.classList.add("hidden");
         incorrectElement.classList.add("incorrectbtn");
         correctElement.classList.add("correctbtn");
-   
+        finalScore.innerHTML= "Your final score is: " +score
+        
+        
+        return;
 }
+
+function seeHighScores(){
+    return location.href("end.html")
+}
+
+saveScore.addEventListener("click",seeHighScores)
+initials.addEventListener("keyup",()=>{
+saveScore.disabled= !initials.value
+})
+
+function saveHighScore(event){
+    event.preventDefault();
 
 }

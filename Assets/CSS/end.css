@@ -95,27 +95,10 @@ header{
 .enterhighscorenone{
     display: none;
 }
-.submit-btn{
-    background-color: blueviolet;
-    color: white;
-   border-radius: 5px;
-   padding: 5px 10px;
-   outline: none;
+
+p{
+    background-color: lightcoral;
+    padding: 10px;
 }
 
-.submit-btn:hover{
-    background-color: lightpink;
-}
-
-.start-btn-class{
-    background-color: blueviolet;
-    color: white;
-   border-radius: 5px;
-   padding: 5px 10px;
-   outline: none;
-}
-
-.start-btn-class:hover{
-    background-color: lightpink;
-}
 
