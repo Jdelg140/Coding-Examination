@@ -21,7 +21,9 @@ const correctElement= document.getElementById("correct-prompt");
 
 const startGameElement = document.getElementById("start-btn");
 
+
 startGameElement.addEventListener("click", createQuestion);
+
 
 choiceElementA.addEventListener("click", checkAnswer);
 choiceElementB.addEventListener("click", checkAnswer);
@@ -32,6 +34,7 @@ const initials=document.getElementById("initials");
 const saveScore=document.getElementById("savescorebtn");
 const enterHighScore=document.getElementById("enterhighscore");
 const finalScore=document.getElementById("final-score");
+const list=document.getElementById("list");
 
 
 
@@ -84,6 +87,7 @@ let questions = [
 //click next to move on to the next question
 let questionIndex = 0;
 let score=0;
+let scores = []
 
 
 function createQuestion() {
@@ -130,6 +134,7 @@ function createQuestion() {
     
 
     questionIndex++;
+    
 }
 
 
@@ -207,16 +212,63 @@ function endQuiz(){
         return;
 }
 
-function seeHighScores(){
-    return location.href("end.html")
-}
 
-saveScore.addEventListener("click",seeHighScores)
+
+
 initials.addEventListener("keyup",()=>{
 saveScore.disabled= !initials.value
 })
 
-function saveHighScore(event){
-    event.preventDefault();
 
+
+
+
+document.getElementById("savescorebtn").onclick  = function(event) {
+
+    event.preventDefault();
+    var text = document.getElementById("initials").value; 
+    // step1 get high score list from local storage firstF
+    localStorage.setItem("initials",text);
+    score = score.valueOf;
+    localStorage.setItem("score",score)
+
+    var newScore = {
+        score,
+        initials
+    }
+    var oldHighScores =localStorage.getItem(score);
+    var formattedScores = JSON.parse(oldHighScores);
+
+    if(formattedScores){
+        formattedScores.push(newScore);
+        localStorage.set("list", formattedScores);
+        var li=document.createElement('li');
+        li.innerHTML=text + score
+        document.getElementById('list').appendChild(li)
+    }
+    
+   
+  // step 2 add new high score to retrieved list akak .push({new score object})
+   
+    window.location.assign("end.html")
 }
+
+
+// document.getElementById("savescorebtn").onclick  = function(event) {
+//     event.preventDefault(); 
+//     var initials = document.getElementById("highScores").value;
+//     var newScore = {
+//         score,
+//         initials
+//     }
+//     var oldHighScores =localStorage.getItem("highScores")
+//     var formattedScores = JSON.parse(oldHighScores)
+
+//     if( formattedScores){
+//         formattedScores.push(newScore)
+//         localStorage.set("highScores", formattedScores)
+//     }
+    
+
+
+// }
